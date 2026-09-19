@@ -1,0 +1,38 @@
+# Shopify app configuration for abify.
+#
+# Deployed with the Shopify CLI: `shopify app deploy` from this directory.
+# The app itself is served by the Laravel application — this directory only
+# holds the Shopify-side manifest and the theme extension.
+
+name = "abify"
+client_id = "REPLACE_WITH_SHOPIFY_API_KEY"
+application_url = "https://abify.io"
+embedded = true
+
+[access_scopes]
+# read_orders is the whole point: revenue attribution. Nothing here can write
+# to the merchant's store.
+scopes = "read_orders,read_products"
+
+[auth]
+redirect_urls = [ "https://abify.io/shopify/callback" ]
+
+[webhooks]
+api_version = "2025-07"
+
+  [[webhooks.subscriptions]]
+  # orders/paid rather than orders/create: an order that is placed but never
+  # paid is not revenue, and counting it would overstate every variation that
+  # attracts abandoned checkouts.
+  topics = [ "orders/paid" ]
+  uri = "https://abify.io/shopify/webhook"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "https://abify.io/shopify/webhook"
+
+# Shopify will not approve a listing without all three privacy topics.
+[webhooks.privacy_compliance]
+customer_deletion_url = "https://abify.io/shopify/webhook"
+customer_data_request_url = "https://abify.io/shopify/webhook"
+shop_deletion_url = "https://abify.io/shopify/webhook"

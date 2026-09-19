@@ -1,0 +1,66 @@
+{% comment %}
+  abify tracking snippet.
+
+  Rendered into <head> so variations are applied before the browser paints.
+  The anti-flicker hide below is deliberately short — Shopify themes are
+  server-rendered and fast, and a long hide window is pure Core Web Vitals
+  damage for a page that was going to be quick anyway.
+{% endcomment %}
+
+<script type="text/javascript" id="abifyCode">
+window._abify_code || (function () {
+    var site_id = {{ block.settings.site_id | json }},
+        settings_tolerance = {{ block.settings.tolerance | default: 1000 }},
+        hide_element = 'body',
+        hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;';
+    /* DO NOT EDIT BELOW THIS LINE */
+    if (!site_id) return;
+
+    var w = window, d = document;
+    w._abify_code = { site_id: site_id, hide_element: hide_element };
+
+    var style = d.createElement('style');
+    style.id = '_abify_hide';
+    style.textContent = hide_element + '{' + hide_element_style + '}';
+    (d.head || d.documentElement).appendChild(style);
+
+    var reveal = function () {
+        var el = d.getElementById('_abify_hide');
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+    };
+    w.__abReveal = reveal;
+    setTimeout(reveal, settings_tolerance);
+
+    var s = d.createElement('script');
+    s.src = 'https://abify.io/t/' + site_id + '.js';
+    s.async = true;
+    s.fetchPriority = 'high';
+    s.onerror = reveal;
+    (d.head || d.documentElement).appendChild(s);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "abify",
+  "target": "head",
+  "settings": [
+    {
+      "type": "text",
+      "id": "site_id",
+      "label": "Site ID",
+      "info": "Copy this from your site's overview page in abify."
+    },
+    {
+      "type": "range",
+      "id": "tolerance",
+      "label": "Anti-flicker timeout (ms)",
+      "min": 500,
+      "max": 3000,
+      "step": 100,
+      "default": 1000,
+      "info": "How long the page may stay hidden while a variation is applied. Lower is better for page speed."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo Landing Page — AB test sandbox</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #0f172a; }
+        .hero { text-align: center; padding: 100px 20px; background: linear-gradient(180deg, #eef2ff, #ffffff); }
+        #hero-headline { font-size: 40px; margin: 0 0 12px; }
+        .sub { color: #475569; font-size: 18px; max-width: 480px; margin: 0 auto 32px; }
+        #cta-btn { background: #4f46e5; color: #fff; border: none; padding: 16px 32px; font-size: 16px; border-radius: 999px; cursor: pointer; }
+        section { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        section p { color: #475569; line-height: 1.7; }
+        .note { color: #94a3b8; font-size: 13px; text-align: center; padding-bottom: 40px; }
+    </style>
+
+    <!-- Start abify.io code (site: Demo Landing Page) -->
+    <script type="text/javascript" id="abifyCode">
+    window._abify_code || (function () {
+        var site_id = '01M212KN7JHV20ZK2J5KJGD2NK',
+            settings_tolerance = 2000,
+            hide_element = 'body',
+            hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;';
+        /* DO NOT EDIT BELOW THIS LINE */
+        var w = window, d = document;
+        w._abify_code = { site_id: site_id, hide_element: hide_element };
+
+        var style = d.createElement('style');
+        style.id = '_abify_hide';
+        style.textContent = hide_element + '{' + hide_element_style + '}';
+        (d.head || d.documentElement).appendChild(style);
+
+        var reveal = function () {
+            var el = d.getElementById('_abify_hide');
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        };
+        w.__abReveal = reveal;
+        setTimeout(reveal, settings_tolerance);
+
+        var s = d.createElement('script');
+        s.src = 'http://localhost:8000/t/' + site_id + '.js';
+        s.async = true;
+        s.onerror = reveal;
+        (d.head || d.documentElement).appendChild(s);
+    })();
+    </script>
+    <!-- End abify.io code -->
+</head>
+<body>
+    <div class="hero">
+        <h1 id="hero-headline">Ship experiments without the headache</h1>
+        <p class="sub">A/B testing, analytics, and heatmaps in one lightweight script.</p>
+        <button id="cta-btn">Start free trial</button>
+    </div>
+
+    <section>
+        <p>Scroll around and click a few things on this page — the tracking script records pageviews,
+        clicks, mouse movement, and scroll depth for the Heatmap viewer, and buckets you into the
+        "Hero headline" test (control vs. a bold red variant on <code>#hero-headline</code>).</p>
+        <p>Use the eye-icon preview link on a variation to force it instead of waiting on random bucketing,
+        and check the Analytics tab after a few clicks on "Start free trial" (the test's goal).</p>
+    </section>
+
+    <p class="note">Demo sandbox page — served from public/demo-landing.html</p>
+</body>
+</html>

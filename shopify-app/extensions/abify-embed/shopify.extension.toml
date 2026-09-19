@@ -1,0 +1,12 @@
+# Theme app extension — how the tracking snippet reaches the storefront.
+#
+# Not the ScriptTag API: Shopify has deprecated it for the Online Store. An
+# app embed block is the supported route, and it lets the merchant toggle
+# abify from the theme editor without anyone editing theme code.
+
+api_version = "2025-07"
+
+[[extensions]]
+type = "theme"
+name = "abify"
+handle = "abify-embed"
